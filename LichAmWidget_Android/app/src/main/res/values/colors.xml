@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="cream_bg">#F7F5EE</color>
+    <color name="text_primary">#1E2328</color>
+    <color name="text_secondary">#6B6A66</color>
+    <color name="lunar_pill_bg">#3E454C</color>
+    <color name="today_red">#EF4747</color>
+    <color name="battery_pill_bg">#E1EFE4</color>
+    <color name="battery_text">#3B7A57</color>
+</resources>
