@@ -30,7 +30,8 @@ class LichAmWidgetProvider : AppWidgetProvider() {
         for (widgetId in appWidgetIds) {
             updateWidget(context, appWidgetManager, widgetId)
         }
-        if (WidgetPrefs.getCachedWeatherJson(context) == null) {
+        val elapsed = System.currentTimeMillis() - WidgetPrefs.getLastUpdated(context)
+        if (WidgetPrefs.getCachedWeatherJson(context) == null || elapsed >= 25 * 60 * 1000L) {
             WeatherUpdateWorker.enqueueNow(context)
         }
     }
