@@ -6,9 +6,9 @@
     android:background="@drawable/bg_widget_transparent"
     android:orientation="vertical"
     android:paddingLeft="16dp"
-    android:paddingTop="12dp"
+    android:paddingTop="10dp"
     android:paddingRight="16dp"
-    android:paddingBottom="10dp">
+    android:paddingBottom="8dp">
 
     <!-- TOP ROW: Clock/Date Left + Weather/Battery Right -->
     <LinearLayout
@@ -22,7 +22,7 @@
             android:id="@+id/layout_top_left"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1.15"
+            android:layout_weight="1.1"
             android:orientation="vertical">
 
             <TextView
@@ -75,10 +75,10 @@
             android:id="@+id/layout_top_right"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_weight="1.05"
             android:gravity="end"
             android:orientation="vertical"
-            android:paddingTop="8dp">
+            android:paddingTop="2dp">
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -88,9 +88,10 @@
 
                 <ImageView
                     android:id="@+id/iv_weather_now"
-                    android:layout_width="34dp"
-                    android:layout_height="34dp"
-                    android:layout_marginEnd="6dp"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_marginEnd="4dp"
+                    android:scaleType="fitCenter"
                     android:src="@drawable/ic_weather_rain" />
 
                 <TextView
@@ -100,7 +101,7 @@
                     android:includeFontPadding="false"
                     android:text="19°"
                     android:textColor="#1E2328"
-                    android:textSize="32sp"
+                    android:textSize="34sp"
                     android:textStyle="normal" />
             </LinearLayout>
 
@@ -108,7 +109,7 @@
                 android:id="@+id/tv_weather_cond"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="2dp"
+                android:layout_marginTop="1dp"
                 android:text="Có mưa"
                 android:textColor="#3A3D40"
                 android:textSize="11.5sp" />
@@ -116,7 +117,7 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="3dp"
+                android:layout_marginTop="2dp"
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
 
@@ -140,7 +141,7 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="6dp"
+                android:layout_marginTop="5dp"
                 android:background="@drawable/bg_battery_pill"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
@@ -172,7 +173,7 @@
         android:id="@+id/layout_week_row"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="10dp"
         android:baselineAligned="false"
         android:orientation="horizontal">
 
@@ -442,7 +443,7 @@
         android:id="@+id/layout_forecast_row"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="8dp"
         android:baselineAligned="false"
         android:orientation="horizontal">
 
@@ -464,10 +465,11 @@
 
             <ImageView
                 android:id="@+id/iv_fc_icon_0"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:layout_marginTop="3dp"
-                android:layout_marginBottom="3dp"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:layout_marginTop="2dp"
+                android:layout_marginBottom="2dp"
+                android:scaleType="fitCenter"
                 android:src="@drawable/ic_weather_cloudy" />
 
             <TextView
@@ -496,10 +498,11 @@
 
             <ImageView
                 android:id="@+id/iv_fc_icon_1"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:layout_marginTop="3dp"
-                android:layout_marginBottom="3dp"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:layout_marginTop="2dp"
+                android:layout_marginBottom="2dp"
+                android:scaleType="fitCenter"
                 android:src="@drawable/ic_weather_cloudy" />
 
             <TextView
@@ -528,10 +531,11 @@
 
             <ImageView
                 android:id="@+id/iv_fc_icon_2"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:layout_marginTop="3dp"
-                android:layout_marginBottom="3dp"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:layout_marginTop="2dp"
+                android:layout_marginBottom="2dp"
+                android:scaleType="fitCenter"
                 android:src="@drawable/ic_weather_cloudy" />
 
             <TextView
@@ -560,10 +564,11 @@
 
             <ImageView
                 android:id="@+id/iv_fc_icon_3"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:layout_marginTop="3dp"
-                android:layout_marginBottom="3dp"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:layout_marginTop="2dp"
+                android:layout_marginBottom="2dp"
+                android:scaleType="fitCenter"
                 android:src="@drawable/ic_weather_cloudy" />
 
             <TextView
@@ -592,10 +597,11 @@
 
             <ImageView
                 android:id="@+id/iv_fc_icon_4"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:layout_marginTop="3dp"
-                android:layout_marginBottom="3dp"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:layout_marginTop="2dp"
+                android:layout_marginBottom="2dp"
+                android:scaleType="fitCenter"
                 android:src="@drawable/ic_weather_cloudy" />
 
             <TextView
