@@ -1,9 +1,12 @@
-name: Build Android APK
+name: Build & Release Android APK
 
 on:
   push:
     branches: [ "main", "master" ]
   workflow_dispatch:
+
+permissions:
+  contents: write
 
 jobs:
   build:
@@ -24,12 +27,29 @@ jobs:
         with:
           gradle-version: '8.7'
 
-      - name: Build Debug APK
+      - name: Build Signed APK
         working-directory: LichAmWidget_Android
-        run: gradle assembleDebug --stacktrace
+        env:
+          BUILD_NUMBER: ${{ github.run_number }}
+        run: gradle assembleRelease --stacktrace
+
+      - name: Prepare APK asset
+        working-directory: LichAmWidget_Android
+        run: cp app/build/outputs/apk/release/app-release.apk LichAmWidget-latest.apk
 
       - name: Upload APK artifact
         uses: actions/upload-artifact@v4
         with:
           name: LichAmWidget-APK
-          path: LichAmWidget_Android/app/build/outputs/apk/debug/app-debug.apk
+          path: LichAmWidget_Android/LichAmWidget-latest.apk
+
+      - name: Publish GitHub Release for Auto-Update
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TAG_NAME: v1.${{ github.run_number }}
+        run: |
+          gh release delete "$TAG_NAME" --yes 2>/dev/null || true
+          gh release create "$TAG_NAME" \
+            "LichAmWidget_Android/LichAmWidget-latest.apk" \
+            --title "Phiên bản $TAG_NAME" \
+            --notes "Bản cập nhật tự động (build #${{ github.run_number }}). Cài đè trực tiếp trong ứng dụng."
