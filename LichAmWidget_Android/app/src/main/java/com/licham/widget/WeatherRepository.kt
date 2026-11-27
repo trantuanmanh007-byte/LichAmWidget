@@ -23,6 +23,60 @@ data class WeatherData(
 
 object WeatherRepository {
 
+    private val FRAMES_CLEAR = intArrayOf(
+        R.drawable.ic_w3d_clear_f0,
+        R.drawable.ic_w3d_clear_f1,
+        R.drawable.ic_w3d_clear_f2,
+        R.drawable.ic_w3d_clear_f3,
+        R.drawable.ic_w3d_clear_f4,
+        R.drawable.ic_w3d_clear_f5
+    )
+
+    private val FRAMES_PARTLY_CLOUDY = intArrayOf(
+        R.drawable.ic_w3d_partly_cloudy_f0,
+        R.drawable.ic_w3d_partly_cloudy_f1,
+        R.drawable.ic_w3d_partly_cloudy_f2,
+        R.drawable.ic_w3d_partly_cloudy_f3,
+        R.drawable.ic_w3d_partly_cloudy_f4,
+        R.drawable.ic_w3d_partly_cloudy_f5
+    )
+
+    private val FRAMES_CLOUDY = intArrayOf(
+        R.drawable.ic_w3d_cloudy_f0,
+        R.drawable.ic_w3d_cloudy_f1,
+        R.drawable.ic_w3d_cloudy_f2,
+        R.drawable.ic_w3d_cloudy_f3,
+        R.drawable.ic_w3d_cloudy_f4,
+        R.drawable.ic_w3d_cloudy_f5
+    )
+
+    private val FRAMES_FOG = intArrayOf(
+        R.drawable.ic_w3d_fog_f0,
+        R.drawable.ic_w3d_fog_f1,
+        R.drawable.ic_w3d_fog_f2,
+        R.drawable.ic_w3d_fog_f3,
+        R.drawable.ic_w3d_fog_f4,
+        R.drawable.ic_w3d_fog_f5
+    )
+
+    private val FRAMES_RAIN = intArrayOf(
+        R.drawable.ic_w3d_rain_f0,
+        R.drawable.ic_w3d_rain_f1,
+        R.drawable.ic_w3d_rain_f2,
+        R.drawable.ic_w3d_rain_f3,
+        R.drawable.ic_w3d_rain_f4,
+        R.drawable.ic_w3d_rain_f5
+    )
+
+    private val FRAMES_STORM = intArrayOf(
+        R.drawable.ic_w3d_storm_f0,
+        R.drawable.ic_w3d_storm_f1,
+        R.drawable.ic_w3d_storm_f2,
+        R.drawable.ic_w3d_storm_f3,
+        R.drawable.ic_w3d_storm_f4,
+        R.drawable.ic_w3d_storm_f5
+    )
+
     fun fetchAndSave(context: Context): WeatherData? {
         val lat = WidgetPrefs.getLatitude(context)
         val lon = WidgetPrefs.getLongitude(context)
@@ -104,15 +158,19 @@ object WeatherRepository {
         }
     }
 
-    fun weatherIconRes(code: Int): Int {
+    fun weatherAnimFrames(code: Int): IntArray {
         return when (code) {
-            0 -> R.drawable.ic_w3d_clear
-            1, 2 -> R.drawable.ic_w3d_partly_cloudy
-            3 -> R.drawable.ic_w3d_cloudy
-            45, 48 -> R.drawable.ic_w3d_fog
-            51, 53, 55, 56, 57, 61, 63, 65, 66, 67, 80, 81, 82 -> R.drawable.ic_w3d_rain
-            95, 96, 99 -> R.drawable.ic_w3d_storm
-            else -> R.drawable.ic_w3d_cloudy
+            0 -> FRAMES_CLEAR
+            1, 2 -> FRAMES_PARTLY_CLOUDY
+            3 -> FRAMES_CLOUDY
+            45, 48 -> FRAMES_FOG
+            51, 53, 55, 56, 57, 61, 63, 65, 66, 67, 80, 81, 82 -> FRAMES_RAIN
+            95, 96, 99 -> FRAMES_STORM
+            else -> FRAMES_CLOUDY
         }
+    }
+
+    fun weatherIconRes(code: Int): Int {
+        return weatherAnimFrames(code)[0]
     }
 }

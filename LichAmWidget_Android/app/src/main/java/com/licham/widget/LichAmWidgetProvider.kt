@@ -56,6 +56,15 @@ class LichAmWidgetProvider : AppWidgetProvider() {
     companion object {
         const val ACTION_REFRESH = "com.licham.widget.ACTION_REFRESH"
 
+        private val WEATHER_FRAME_IDS = intArrayOf(
+            R.id.iv_weather_f0,
+            R.id.iv_weather_f1,
+            R.id.iv_weather_f2,
+            R.id.iv_weather_f3,
+            R.id.iv_weather_f4,
+            R.id.iv_weather_f5
+        )
+
         private val WEEK_COL_IDS = intArrayOf(
             R.id.col_day_0, R.id.col_day_1, R.id.col_day_2, R.id.col_day_3,
             R.id.col_day_4, R.id.col_day_5, R.id.col_day_6
@@ -89,6 +98,13 @@ class LichAmWidgetProvider : AppWidgetProvider() {
             val ids = manager.getAppWidgetIds(component)
             for (id in ids) {
                 updateWidget(context, manager, id)
+            }
+        }
+
+        private fun setAnimatedWeatherFrames(views: RemoteViews, weatherCode: Int) {
+            val frames = WeatherRepository.weatherAnimFrames(weatherCode)
+            for (i in WEATHER_FRAME_IDS.indices) {
+                views.setImageViewResource(WEATHER_FRAME_IDS[i], frames[i % frames.size])
             }
         }
 
@@ -147,10 +163,7 @@ class LichAmWidgetProvider : AppWidgetProvider() {
                     R.id.tv_weather_cond,
                     WeatherRepository.conditionText(weather.currentCode)
                 )
-                views.setImageViewResource(
-                    R.id.iv_weather_now,
-                    WeatherRepository.weatherIconRes(weather.currentCode)
-                )
+                setAnimatedWeatherFrames(views, weather.currentCode)
                 val todayFc = weather.daily[0]
                 views.setTextViewText(
                     R.id.tv_loc_range,
@@ -176,13 +189,13 @@ class LichAmWidgetProvider : AppWidgetProvider() {
             } else {
                 views.setTextViewText(R.id.tv_temp_now, "--°")
                 views.setTextViewText(R.id.tv_weather_cond, "Chạm để cập nhật")
-                views.setImageViewResource(R.id.iv_weather_now, R.drawable.ic_w3d_cloudy)
+                setAnimatedWeatherFrames(views, 3)
                 views.setTextViewText(R.id.tv_loc_range, cityName)
                 for (i in 0 until 5) {
                     val fcCal = (now.clone() as Calendar).apply { add(Calendar.DAY_OF_YEAR, i) }
                     val label = if (i == 0) "H.NAY" else vietnameseWeekdayUpper(fcCal.get(Calendar.DAY_OF_WEEK))
                     views.setTextViewText(FORECAST_DAY_IDS[i], label)
-                    views.setImageViewResource(FORECAST_ICON_IDS[i], R.drawable.ic_w3d_cloudy)
+                    views.setImageViewResource(FORECAST_ICON_IDS[i], R.drawable.ic_w3d_cloudy_f0)
                     views.setTextViewText(FORECAST_TEMP_IDS[i], "--°/--°")
                 }
             }
