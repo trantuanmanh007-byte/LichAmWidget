@@ -1,13 +1,101 @@
 <?xml version="1.0" encoding="utf-8"?>
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
-    android:width="32dp"
-    android:height="32dp"
-    android:viewportWidth="24"
-    android:viewportHeight="24">
+    xmlns:aapt="http://schemas.android.com/aapt"
+    android:width="48dp"
+    android:height="48dp"
+    android:viewportWidth="48"
+    android:viewportHeight="48">
+
+    <!-- Back rain cloud -->
+    <path android:pathData="M23,23.2 L39.2,23.2 C42.2,23.2 44.6,20.8 44.6,17.8 C44.6,15 42.5,12.8 39.8,12.5 C38.7,8.8 35.3,6.2 31.3,6.2 C26.9,6.2 23.2,9.5 22.6,13.8 C20.1,14.2 18.2,16.5 18.2,19.1 C18.2,21.4 20.3,23.2 23,23.2 Z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:type="linear"
+                android:startX="31"
+                android:startY="6.2"
+                android:endX="31"
+                android:endY="23.2"
+                android:startColor="#FFB6C9DB"
+                android:centerColor="#FF8BA4BC"
+                android:endColor="#FF68839E" />
+        </aapt:attr>
+    </path>
+
+    <!-- Front 3D rain cloud -->
+    <path android:pathData="M11.2,31 L34.2,31 C38.4,31 41.8,27.7 41.8,23.6 C41.8,19.8 39,16.7 35.2,16.3 C33.8,11.3 29.1,7.8 23.5,7.8 C17.3,7.8 12.2,12.4 11.5,18.3 C7.9,18.9 5.2,21.9 5.2,25.5 C5.2,28.6 7.9,31 11.2,31 Z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:type="linear"
+                android:startX="22"
+                android:startY="7.8"
+                android:endX="24"
+                android:endY="31"
+                android:startColor="#FFF5F9FD"
+                android:centerColor="#FFC9D9E8"
+                android:endColor="#FF89A3BC" />
+        </aapt:attr>
+    </path>
+
+    <!-- Cloud specular glow -->
+    <path android:pathData="M15.4,18.8 C15.4,14.5 19,11 23.5,11 C28,11 31.6,14.5 31.6,18.8 C31.6,21.6 28.5,23.4 23.5,23.4 C18.5,23.4 15.4,21.6 15.4,18.8 Z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:type="radial"
+                android:centerX="22"
+                android:centerY="13.8"
+                android:gradientRadius="9.5"
+                android:startColor="#CCFFFFFF"
+                android:endColor="#00FFFFFF" />
+        </aapt:attr>
+    </path>
+
+    <!-- Glossy 3D Raindrop 1 (left) -->
+    <path android:pathData="M15.6,33.2 C15.6,33.2 12,37.8 12,40.2 C12,42.2 13.6,43.8 15.6,43.8 C17.6,43.8 19.2,42.2 19.2,40.2 C19.2,37.8 15.6,33.2 15.6,33.2 Z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:type="linear"
+                android:startX="14.2"
+                android:startY="33.8"
+                android:endX="17"
+                android:endY="43.8"
+                android:startColor="#FF7DD3FC"
+                android:centerColor="#FF0EA5E9"
+                android:endColor="#FF0369A1" />
+        </aapt:attr>
+    </path>
+
+    <!-- Glossy 3D Raindrop 2 (center, lower) -->
+    <path android:pathData="M24.5,35 C24.5,35 20.9,39.6 20.9,42 C20.9,44 22.5,45.6 24.5,45.6 C26.5,45.6 28.1,44 28.1,42 C28.1,39.6 24.5,35 24.5,35 Z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:type="linear"
+                android:startX="23.1"
+                android:startY="35.6"
+                android:endX="25.9"
+                android:endY="45.6"
+                android:startColor="#FF7DD3FC"
+                android:centerColor="#FF0EA5E9"
+                android:endColor="#FF0369A1" />
+        </aapt:attr>
+    </path>
+
+    <!-- Glossy 3D Raindrop 3 (right) -->
+    <path android:pathData="M33.4,33.2 C33.4,33.2 29.8,37.8 29.8,40.2 C29.8,42.2 31.4,43.8 33.4,43.8 C35.4,43.8 37,42.2 37,40.2 C37,37.8 33.4,33.2 33.4,33.2 Z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:type="linear"
+                android:startX="32"
+                android:startY="33.8"
+                android:endX="34.8"
+                android:endY="43.8"
+                android:startColor="#FF7DD3FC"
+                android:centerColor="#FF0EA5E9"
+                android:endColor="#FF0369A1" />
+        </aapt:attr>
+    </path>
+
+    <!-- Specular water highlights -->
     <path
-        android:fillColor="#95AEBF"
-        android:pathData="M18.5,15H6.5a4,4 0,0 1,-0.4 -7.98A5.5,5.5 0,0 1,17.1 7.9 3.6,3.6 0,0 1,18.5 15z" />
-    <path
-        android:fillColor="#6FAFD3"
-        android:pathData="M8.5,17.2l-1.1,2.6a0.8,0.8 0,0 0,1.46 0.64l1.1,-2.6a0.8,0.8 0,0 0,-1.46 -0.64zM12.5,17.2l-1.1,2.6a0.8,0.8 0,0 0,1.46 0.64l1.1,-2.6a0.8,0.8 0,0 0,-1.46 -0.64zM16.5,17.2l-1.1,2.6a0.8,0.8 0,0 0,1.46 0.64l1.1,-2.6a0.8,0.8 0,0 0,-1.46 -0.64z" />
+        android:fillColor="#B3FFFFFF"
+        android:pathData="M14.1,39.2 A0.9,1.5 0 1,0 14.1,41.8 A0.9,1.5 0 1,0 14.1,39.2 Z M23,41 A0.9,1.5 0 1,0 23,43.6 A0.9,1.5 0 1,0 23,41 Z M31.9,39.2 A0.9,1.5 0 1,0 31.9,41.8 A0.9,1.5 0 1,0 31.9,39.2 Z" />
 </vector>

@@ -1,13 +1,68 @@
 <?xml version="1.0" encoding="utf-8"?>
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
-    android:width="32dp"
-    android:height="32dp"
-    android:viewportWidth="24"
-    android:viewportHeight="24">
-    <path
-        android:fillColor="#B2C2CE"
-        android:pathData="M18,14H6.5a3.8,3.8 0,0 1,-0.3 -7.58A5.2,5.2 0,0 1,16.8 7.3 3.4,3.4 0,0 1,18 14z" />
-    <path
-        android:fillColor="#9EB0BE"
-        android:pathData="M5,16.5h14v1.5H5zM7,19.5h10V21H7z" />
+    xmlns:aapt="http://schemas.android.com/aapt"
+    android:width="48dp"
+    android:height="48dp"
+    android:viewportWidth="48"
+    android:viewportHeight="48">
+
+    <!-- Soft misty 3D cloud -->
+    <path android:pathData="M11.5,27.8 L34.5,27.8 C38.4,27.8 41.5,24.8 41.5,21 C41.5,17.5 38.8,14.6 35.3,14.2 C33.9,9.6 29.5,6.3 24.2,6.3 C18.3,6.3 13.5,10.6 12.8,16.2 C9.4,16.8 6.8,19.6 6.8,22.9 C6.8,25.7 9,27.8 11.5,27.8 Z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:type="linear"
+                android:startX="23"
+                android:startY="6.3"
+                android:endX="24"
+                android:endY="27.8"
+                android:startColor="#FFF7FAFD"
+                android:centerColor="#FFD8E4EE"
+                android:endColor="#FFA5BACD" />
+        </aapt:attr>
+    </path>
+
+    <!-- Mist band 1 -->
+    <path android:pathData="M7.5,31 L38.5,31 C39.5,31 40.3,31.8 40.3,32.8 C40.3,33.8 39.5,34.6 38.5,34.6 L7.5,34.6 C6.5,34.6 5.7,33.8 5.7,32.8 C5.7,31.8 6.5,31 7.5,31 Z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:type="linear"
+                android:startX="5.7"
+                android:startY="32.8"
+                android:endX="40.3"
+                android:endY="32.8"
+                android:startColor="#408CA3B8"
+                android:centerColor="#D97E96AC"
+                android:endColor="#408CA3B8" />
+        </aapt:attr>
+    </path>
+
+    <!-- Mist band 2 -->
+    <path android:pathData="M11.5,36.4 L40.5,36.4 C41.4,36.4 42.2,37.2 42.2,38.1 C42.2,39 41.4,39.8 40.5,39.8 L11.5,39.8 C10.6,39.8 9.8,39 9.8,38.1 C9.8,37.2 10.6,36.4 11.5,36.4 Z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:type="linear"
+                android:startX="9.8"
+                android:startY="38.1"
+                android:endX="42.2"
+                android:endY="38.1"
+                android:startColor="#358CA3B8"
+                android:centerColor="#BF8CA3B8"
+                android:endColor="#358CA3B8" />
+        </aapt:attr>
+    </path>
+
+    <!-- Mist band 3 -->
+    <path android:pathData="M9,41.6 L34,41.6 C34.9,41.6 35.6,42.3 35.6,43.1 C35.6,43.9 34.9,44.6 34,44.6 L9,44.6 C8.1,44.6 7.4,43.9 7.4,43.1 C7.4,42.3 8.1,41.6 9,41.6 Z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:type="linear"
+                android:startX="7.4"
+                android:startY="43.1"
+                android:endX="35.6"
+                android:endY="43.1"
+                android:startColor="#288CA3B8"
+                android:centerColor="#998CA3B8"
+                android:endColor="#288CA3B8" />
+        </aapt:attr>
+    </path>
 </vector>

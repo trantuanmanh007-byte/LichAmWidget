@@ -1,10 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
-    android:width="32dp"
-    android:height="32dp"
-    android:viewportWidth="24"
-    android:viewportHeight="24">
-    <path
-        android:fillColor="#B2C2CE"
-        android:pathData="M18.5,18H6.5a4.2,4.2 0,0 1,-0.4 -8.38A5.8,5.8 0,0 1,17.4 10.6 3.7,3.7 0,0 1,18.5 18z" />
+    xmlns:aapt="http://schemas.android.com/aapt"
+    android:width="48dp"
+    android:height="48dp"
+    android:viewportWidth="48"
+    android:viewportHeight="48">
+
+    <!-- Back cloud (cool blue-slate for depth) -->
+    <path android:pathData="M21,29 L38.8,29 C42.1,29 44.8,26.3 44.8,23 C44.8,19.9 42.5,17.3 39.5,16.9 C38.2,12.8 34.5,9.8 30.1,9.8 C25.1,9.8 21,13.5 20.3,18.2 C17.5,18.7 15.4,21.2 15.4,24.1 C15.4,26.8 17.9,29 21,29 Z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:type="linear"
+                android:startX="30"
+                android:startY="9.8"
+                android:endX="30"
+                android:endY="29"
+                android:startColor="#FFC7D6E5"
+                android:centerColor="#FF9EB5CA"
+                android:endColor="#FF7B95AE" />
+        </aapt:attr>
+    </path>
+
+    <!-- Soft drop shadow under front cloud -->
+    <path android:pathData="M7.5,38.4 C7.5,36.8 14.5,35.6 22.8,35.6 C31.1,35.6 38,36.8 38,38.4 C38,40 31.1,41.3 22.8,41.3 C14.5,41.3 7.5,40 7.5,38.4 Z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:type="radial"
+                android:centerX="22.8"
+                android:centerY="38.4"
+                android:gradientRadius="15.5"
+                android:startColor="#45445C73"
+                android:endColor="#00445C73" />
+        </aapt:attr>
+    </path>
+
+    <!-- Front main 3D cloud -->
+    <path android:pathData="M11.2,38.5 L33.8,38.5 C38,38.5 41.4,35.1 41.4,31 C41.4,27.1 38.6,23.9 34.8,23.5 C33.4,18.3 28.7,14.5 23,14.5 C16.7,14.5 11.6,19.2 10.9,25.3 C7.3,25.9 4.6,29 4.6,32.7 C4.6,36 7.5,38.5 11.2,38.5 Z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:type="linear"
+                android:startX="21"
+                android:startY="14.5"
+                android:endX="24"
+                android:endY="38.5"
+                android:startColor="#FFF8FBFF"
+                android:centerColor="#FFD8E4F0"
+                android:endColor="#FF9CB4CA" />
+        </aapt:attr>
+    </path>
+
+    <!-- Top puff highlight -->
+    <path android:pathData="M15.2,25.8 C15.2,21 18.8,17.2 23.4,17.2 C28,17.2 31.6,21 31.6,25.8 C31.6,28.9 28.5,31 23.4,31 C18.3,31 15.2,28.9 15.2,25.8 Z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:type="radial"
+                android:centerX="22"
+                android:centerY="20"
+                android:gradientRadius="10"
+                android:startColor="#E0FFFFFF"
+                android:endColor="#00FFFFFF" />
+        </aapt:attr>
+    </path>
 </vector>

@@ -1,13 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
-    android:width="32dp"
-    android:height="32dp"
-    android:viewportWidth="24"
-    android:viewportHeight="24">
+    xmlns:aapt="http://schemas.android.com/aapt"
+    android:width="48dp"
+    android:height="48dp"
+    android:viewportWidth="48"
+    android:viewportHeight="48">
+
+    <!-- Outer warm ambient glow -->
+    <path android:pathData="M24,2 A22,22 0 1,0 24,46 A22,22 0 1,0 24,2 Z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:type="radial"
+                android:centerX="24"
+                android:centerY="24"
+                android:gradientRadius="22"
+                android:startColor="#80FFCA28"
+                android:centerColor="#38FFA000"
+                android:endColor="#00FFA000" />
+        </aapt:attr>
+    </path>
+
+    <!-- Soft golden sun rays -->
+    <path android:pathData="M24,4 C24.9,4 25.5,4.7 25.5,5.5 L25.5,8.6 C25.5,9.4 24.9,10 24,10 C23.1,10 22.5,9.4 22.5,8.6 L22.5,5.5 C22.5,4.7 23.1,4 24,4 Z M24,38 C24.9,38 25.5,38.6 25.5,39.4 L25.5,42.5 C25.5,43.3 24.9,44 24,44 C23.1,44 22.5,43.3 22.5,42.5 L22.5,39.4 C22.5,38.6 23.1,38 24,38 Z M4,24 C4,23.1 4.7,22.5 5.5,22.5 L8.6,22.5 C9.4,22.5 10,23.1 10,24 C10,24.9 9.4,25.5 8.6,25.5 L5.5,25.5 C4.7,25.5 4,24.9 4,24 Z M38,24 C38,23.1 38.6,22.5 39.4,22.5 L42.5,22.5 C43.3,22.5 44,23.1 44,24 C44,24.9 43.3,25.5 42.5,25.5 L39.4,25.5 C38.6,25.5 38,24.9 38,24 Z M9.9,9.9 C10.5,9.3 11.4,9.3 12,9.9 L14.1,12 C14.7,12.6 14.7,13.5 14.1,14.1 C13.5,14.7 12.6,14.7 12,14.1 L9.9,12 C9.3,11.4 9.3,10.5 9.9,9.9 Z M33.9,33.9 C34.5,33.3 35.4,33.3 36,33.9 L38.1,36 C38.7,36.6 38.7,37.5 38.1,38.1 C37.5,38.7 36.6,38.7 36,38.1 L33.9,36 C33.3,35.4 33.3,34.5 33.9,33.9 Z M38.1,9.9 C38.7,10.5 38.7,11.4 38.1,12 L36,14.1 C35.4,14.7 34.5,14.7 33.9,14.1 C33.3,13.5 33.3,12.6 33.9,12 L36,9.9 C36.6,9.3 37.5,9.3 38.1,9.9 Z M14.1,33.9 C14.7,34.5 14.7,35.4 14.1,36 L12,38.1 C11.4,38.7 10.5,38.7 9.9,38.1 C9.3,37.5 9.3,36.6 9.9,36 L12,33.9 C12.6,33.3 13.5,33.3 14.1,33.9 Z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:type="linear"
+                android:startX="10"
+                android:startY="6"
+                android:endX="38"
+                android:endY="42"
+                android:startColor="#FFFFCA28"
+                android:centerColor="#FFFFA726"
+                android:endColor="#FFEF6C00" />
+        </aapt:attr>
+    </path>
+
+    <!-- 3D Sun sphere -->
+    <path android:pathData="M24,11 A13,13 0 1,0 24,37 A13,13 0 1,0 24,11 Z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:type="radial"
+                android:centerX="19.5"
+                android:centerY="18"
+                android:gradientRadius="19"
+                android:startColor="#FFFFF59D"
+                android:centerColor="#FFFFB300"
+                android:endColor="#FFEA580C" />
+        </aapt:attr>
+    </path>
+
+    <!-- Glossy top-left specular highlight -->
     <path
-        android:fillColor="#F4B942"
-        android:pathData="M12,7a5,5 0,1 0,0 10a5,5 0,1 0,0 -10z" />
-    <path
-        android:fillColor="#F4B942"
-        android:pathData="M11,2h2v3h-2zM11,19h2v3h-2zM2,11h3v2H2zM19,11h3v2h-3zM4.93,4.93l1.41,1.41 -1.41,1.41 -1.41,-1.41zM17.66,17.66l1.41,1.41 -1.41,1.41 -1.41,-1.41zM17.66,6.34l1.41,-1.41 1.41,1.41 -1.41,1.41zM4.93,19.07l1.41,-1.41 1.41,1.41 -1.41,1.41z" />
+        android:fillColor="#66FFFFFF"
+        android:pathData="M20.3,14.3 C23.1,13.2 26.2,14 27.3,16 C28.4,18 27,20.4 24.2,21.5 C21.4,22.6 18.3,21.8 17.2,19.8 C16.1,17.8 17.5,15.4 20.3,14.3 Z" />
 </vector>
