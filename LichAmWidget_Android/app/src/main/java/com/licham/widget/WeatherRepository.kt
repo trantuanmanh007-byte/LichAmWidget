@@ -106,13 +106,13 @@ object WeatherRepository {
 
     fun weatherIconRes(code: Int): Int {
         return when (code) {
-            0 -> R.drawable.ic_weather_clear
-            1, 2 -> R.drawable.ic_weather_partly_cloudy
-            3 -> R.drawable.ic_weather_cloudy
-            45, 48 -> R.drawable.ic_weather_fog
-            51, 53, 55, 56, 57, 61, 63, 65, 66, 67, 80, 81, 82 -> R.drawable.ic_weather_rain
-            95, 96, 99 -> R.drawable.ic_weather_storm
-            else -> R.drawable.ic_weather_cloudy
+            0 -> R.drawable.ic_w3d_clear
+            1, 2 -> R.drawable.ic_w3d_partly_cloudy
+            3 -> R.drawable.ic_w3d_cloudy
+            45, 48 -> R.drawable.ic_w3d_fog
+            51, 53, 55, 56, 57, 61, 63, 65, 66, 67, 80, 81, 82 -> R.drawable.ic_w3d_rain
+            95, 96, 99 -> R.drawable.ic_w3d_storm
+            else -> R.drawable.ic_w3d_cloudy
         }
     }
 }

@@ -99,7 +99,6 @@ class LichAmWidgetProvider : AppWidgetProvider() {
         ) {
             val views = RemoteViews(context.packageName, R.layout.widget_lich_am)
 
-            // 1. Background style (transparent for torn paper wallpaper, or cream card)
             val bgRes = if (WidgetPrefs.isTransparentBg(context)) {
                 R.drawable.bg_widget_transparent
             } else {
@@ -107,7 +106,6 @@ class LichAmWidgetProvider : AppWidgetProvider() {
             }
             views.setInt(R.id.widget_root, "setBackgroundResource", bgRes)
 
-            // 2. Greeting, Solar date, and Lunar badge
             val now = Calendar.getInstance()
             val hour = now.get(Calendar.HOUR_OF_DAY)
             val greeting = when {
@@ -127,7 +125,6 @@ class LichAmWidgetProvider : AppWidgetProvider() {
             val todayLunar = LunarCalendar.convertSolar2Lunar(dayOfMonth, month, year)
             views.setTextViewText(R.id.tv_lunar_badge, todayLunar.badgeLabel())
 
-            // 3. Battery level & temperature
             val batteryStatus = context.registerReceiver(
                 null,
                 IntentFilter(Intent.ACTION_BATTERY_CHANGED)
@@ -142,7 +139,6 @@ class LichAmWidgetProvider : AppWidgetProvider() {
                 String.format(Locale.US, "%d%% • %.1f°C", pct, tempC)
             )
 
-            // 4. Current weather & 5-day forecast
             val weather = WeatherRepository.loadCached(context)
             val cityName = WidgetPrefs.getCityName(context)
             if (weather != null && weather.daily.isNotEmpty()) {
@@ -180,18 +176,17 @@ class LichAmWidgetProvider : AppWidgetProvider() {
             } else {
                 views.setTextViewText(R.id.tv_temp_now, "--°")
                 views.setTextViewText(R.id.tv_weather_cond, "Chạm để cập nhật")
-                views.setImageViewResource(R.id.iv_weather_now, R.drawable.ic_weather_cloudy)
+                views.setImageViewResource(R.id.iv_weather_now, R.drawable.ic_w3d_cloudy)
                 views.setTextViewText(R.id.tv_loc_range, cityName)
                 for (i in 0 until 5) {
                     val fcCal = (now.clone() as Calendar).apply { add(Calendar.DAY_OF_YEAR, i) }
                     val label = if (i == 0) "H.NAY" else vietnameseWeekdayUpper(fcCal.get(Calendar.DAY_OF_WEEK))
                     views.setTextViewText(FORECAST_DAY_IDS[i], label)
-                    views.setImageViewResource(FORECAST_ICON_IDS[i], R.drawable.ic_weather_cloudy)
+                    views.setImageViewResource(FORECAST_ICON_IDS[i], R.drawable.ic_w3d_cloudy)
                     views.setTextViewText(FORECAST_TEMP_IDS[i], "--°/--°")
                 }
             }
 
-            // 5. 7-Day Week Calendar Strip (Monday -> Sunday)
             val mondayCal = (now.clone() as Calendar).apply {
                 val dow = get(Calendar.DAY_OF_WEEK)
                 val daysFromMonday = if (dow == Calendar.SUNDAY) 6 else (dow - Calendar.MONDAY)
@@ -224,7 +219,6 @@ class LichAmWidgetProvider : AppWidgetProvider() {
                 }
             }
 
-            // 6. Click handlers: tap left cluster to open settings, tap right/forecast to refresh
             val settingsIntent = Intent(context, MainActivity::class.java)
             val settingsPending = PendingIntent.getActivity(
                 context,

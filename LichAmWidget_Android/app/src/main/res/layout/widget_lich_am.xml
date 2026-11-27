@@ -22,7 +22,7 @@
             android:id="@+id/layout_top_left"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1.1"
+            android:layout_weight="1.08"
             android:orientation="vertical">
 
             <TextView
@@ -40,7 +40,7 @@
                 android:format12Hour="HH:mm"
                 android:format24Hour="HH:mm"
                 android:includeFontPadding="false"
-                android:textColor="#1E2328"
+                android:textColor="#E53935"
                 android:textSize="42sp"
                 android:textStyle="bold" />
 
@@ -75,10 +75,10 @@
             android:id="@+id/layout_top_right"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1.05"
+            android:layout_weight="1.08"
             android:gravity="end"
             android:orientation="vertical"
-            android:paddingTop="2dp">
+            android:paddingTop="1dp">
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -88,11 +88,11 @@
 
                 <ImageView
                     android:id="@+id/iv_weather_now"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
+                    android:layout_width="54dp"
+                    android:layout_height="54dp"
                     android:layout_marginEnd="4dp"
                     android:scaleType="fitCenter"
-                    android:src="@drawable/ic_weather_rain" />
+                    android:src="@drawable/ic_w3d_rain" />
 
                 <TextView
                     android:id="@+id/tv_temp_now"
@@ -465,12 +465,12 @@
 
             <ImageView
                 android:id="@+id/iv_fc_icon_0"
-                android:layout_width="36dp"
-                android:layout_height="36dp"
+                android:layout_width="38dp"
+                android:layout_height="38dp"
                 android:layout_marginTop="2dp"
                 android:layout_marginBottom="2dp"
                 android:scaleType="fitCenter"
-                android:src="@drawable/ic_weather_cloudy" />
+                android:src="@drawable/ic_w3d_cloudy" />
 
             <TextView
                 android:id="@+id/tv_fc_temp_0"
@@ -498,12 +498,12 @@
 
             <ImageView
                 android:id="@+id/iv_fc_icon_1"
-                android:layout_width="36dp"
-                android:layout_height="36dp"
+                android:layout_width="38dp"
+                android:layout_height="38dp"
                 android:layout_marginTop="2dp"
                 android:layout_marginBottom="2dp"
                 android:scaleType="fitCenter"
-                android:src="@drawable/ic_weather_cloudy" />
+                android:src="@drawable/ic_w3d_cloudy" />
 
             <TextView
                 android:id="@+id/tv_fc_temp_1"
@@ -531,12 +531,12 @@
 
             <ImageView
                 android:id="@+id/iv_fc_icon_2"
-                android:layout_width="36dp"
-                android:layout_height="36dp"
+                android:layout_width="38dp"
+                android:layout_height="38dp"
                 android:layout_marginTop="2dp"
                 android:layout_marginBottom="2dp"
                 android:scaleType="fitCenter"
-                android:src="@drawable/ic_weather_cloudy" />
+                android:src="@drawable/ic_w3d_cloudy" />
 
             <TextView
                 android:id="@+id/tv_fc_temp_2"
@@ -564,12 +564,12 @@
 
             <ImageView
                 android:id="@+id/iv_fc_icon_3"
-                android:layout_width="36dp"
-                android:layout_height="36dp"
+                android:layout_width="38dp"
+                android:layout_height="38dp"
                 android:layout_marginTop="2dp"
                 android:layout_marginBottom="2dp"
                 android:scaleType="fitCenter"
-                android:src="@drawable/ic_weather_cloudy" />
+                android:src="@drawable/ic_w3d_cloudy" />
 
             <TextView
                 android:id="@+id/tv_fc_temp_3"
@@ -597,12 +597,12 @@
 
             <ImageView
                 android:id="@+id/iv_fc_icon_4"
-                android:layout_width="36dp"
-                android:layout_height="36dp"
+                android:layout_width="38dp"
+                android:layout_height="38dp"
                 android:layout_marginTop="2dp"
                 android:layout_marginBottom="2dp"
                 android:scaleType="fitCenter"
-                android:src="@drawable/ic_weather_cloudy" />
+                android:src="@drawable/ic_w3d_cloudy" />
 
             <TextView
                 android:id="@+id/tv_fc_temp_4"
