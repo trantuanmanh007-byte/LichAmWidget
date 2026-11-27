@@ -3,6 +3,8 @@ plugins {
     id("org.jetbrains.kotlin.android")
 }
 
+val buildNum = System.getenv("BUILD_NUMBER")?.toIntOrNull() ?: 1
+
 android {
     namespace = "com.licham.widget"
     compileSdk = 34
@@ -11,13 +13,23 @@ android {
         applicationId = "com.licham.widget"
         minSdk = 24
         targetSdk = 34
-        versionCode = 1
-        versionName = "1.0"
+        versionCode = buildNum + 10
+        versionName = "1.$buildNum"
+    }
+
+    signingConfigs {
+        create("release") {
+            storeFile = file("widget_signing.jks")
+            storePassword = "LichAmWidgetKey2026"
+            keyAlias = "lichamwidget"
+            keyPassword = "LichAmWidgetKey2026"
+        }
     }
 
     buildTypes {
         release {
             isMinifyEnabled = false
+            signingConfig = signingConfigs.getByName("release")
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"

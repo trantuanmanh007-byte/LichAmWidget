@@ -3,6 +3,8 @@ package com.licham.widget
 import android.Manifest
 import android.content.Context
 import android.content.pm.PackageManager
+import android.content.res.ColorStateList
+import android.graphics.Color
 import android.location.Geocoder
 import android.location.LocationManager
 import android.os.Bundle
@@ -17,6 +19,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SwitchCompat
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import java.io.File
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Date
@@ -25,15 +28,23 @@ import java.util.Locale
 class MainActivity : AppCompatActivity() {
 
     private lateinit var tvStatus: TextView
+    private lateinit var tvUpdateStatus: TextView
+    private lateinit var btnUpdateAction: Button
     private lateinit var spinnerCity: Spinner
     private lateinit var switchTransparent: SwitchCompat
     private var spinnerInitialized = false
+
+    private var availableRelease: ReleaseInfo? = null
+    private var pendingInstallApk: File? = null
+    private var isUpdating = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         tvStatus = findViewById(R.id.tv_status)
+        tvUpdateStatus = findViewById(R.id.tv_update_status)
+        btnUpdateAction = findViewById(R.id.btn_update_action)
         spinnerCity = findViewById(R.id.spinner_city)
         switchTransparent = findViewById(R.id.switch_transparent)
         val btnGps: Button = findViewById(R.id.btn_gps)
@@ -74,8 +85,102 @@ class MainActivity : AppCompatActivity() {
         btnGps.setOnClickListener { requestGpsLocation() }
         btnRefresh.setOnClickListener { refreshWeatherNow() }
 
+        btnUpdateAction.setOnClickListener {
+            val release = availableRelease
+            if (release != null) {
+                startDownloadAndInstall(release)
+            } else {
+                checkForUpdates(manual = true)
+            }
+        }
+
         updateStatusText()
         WeatherUpdateWorker.schedulePeriodic(this)
+        checkForUpdates(manual = false)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        val apk = pendingInstallApk
+        if (apk != null && apk.exists() && AppUpdater.canInstallPackages(this)) {
+            pendingInstallApk = null
+            AppUpdater.launchInstaller(this, apk)
+        }
+    }
+
+    private fun checkForUpdates(manual: Boolean) {
+        if (isUpdating) return
+        val currentVer = AppUpdater.getCurrentVersionName(this)
+        tvUpdateStatus.text = "Phiên bản hiện tại: v$currentVer\nĐang kiểm tra bản cập nhật mới..."
+        btnUpdateAction.isEnabled = false
+
+        Thread {
+            val latest = AppUpdater.fetchLatestRelease()
+            runOnUiThread {
+                btnUpdateAction.isEnabled = true
+                if (latest == null) {
+                    availableRelease = null
+                    tvUpdateStatus.text = "Phiên bản hiện tại: v$currentVer\nChưa kiểm tra được bản mới (cần kết nối mạng)."
+                    btnUpdateAction.text = "Kiểm tra bản cập nhật"
+                    btnUpdateAction.backgroundTintList = ColorStateList.valueOf(Color.parseColor("#3E454C"))
+                    if (manual) {
+                        Toast.makeText(this, "Không thể kết nối GitHub để kiểm tra cập nhật.", Toast.LENGTH_SHORT).show()
+                    }
+                } else if (AppUpdater.isNewerVersion(latest.versionName, currentVer)) {
+                    availableRelease = latest
+                    tvUpdateStatus.text = "Phiên bản hiện tại: v$currentVer\nCó bản mới: v${latest.versionName} (cài đè trực tiếp, không mất widget)."
+                    btnUpdateAction.text = "Tải & Cài đè v${latest.versionName} ngay"
+                    btnUpdateAction.backgroundTintList = ColorStateList.valueOf(Color.parseColor("#2E7D32"))
+                } else {
+                    availableRelease = null
+                    tvUpdateStatus.text = "Phiên bản hiện tại: v$currentVer\nBạn đang dùng phiên bản mới nhất."
+                    btnUpdateAction.text = "Kiểm tra bản cập nhật"
+                    btnUpdateAction.backgroundTintList = ColorStateList.valueOf(Color.parseColor("#3E454C"))
+                    if (manual) {
+                        Toast.makeText(this, "Bạn đang dùng bản mới nhất (v$currentVer)!", Toast.LENGTH_SHORT).show()
+                    }
+                }
+            }
+        }.start()
+    }
+
+    private fun startDownloadAndInstall(release: ReleaseInfo) {
+        if (isUpdating) return
+        isUpdating = true
+        btnUpdateAction.isEnabled = false
+        btnUpdateAction.text = "Đang tải v${release.versionName}..."
+        tvUpdateStatus.text = "Đang tải bản cập nhật v${release.versionName}... 0%"
+
+        Thread {
+            val apkFile = AppUpdater.downloadApk(applicationContext, release.downloadUrl) { pct ->
+                runOnUiThread {
+                    tvUpdateStatus.text = "Đang tải bản cập nhật v${release.versionName}... $pct%"
+                }
+            }
+            runOnUiThread {
+                isUpdating = false
+                btnUpdateAction.isEnabled = true
+                if (apkFile == null) {
+                    tvUpdateStatus.text = "Tải bản cập nhật thất bại. Vui lòng kiểm tra mạng và thử lại."
+                    btnUpdateAction.text = "Thử tải lại v${release.versionName}"
+                    Toast.makeText(this, "Không tải được tệp cài đặt.", Toast.LENGTH_SHORT).show()
+                } else {
+                    tvUpdateStatus.text = "Đã tải xong v${release.versionName}. Đang mở trình cài đặt..."
+                    btnUpdateAction.text = "Cài đặt v${release.versionName}"
+                    if (!AppUpdater.canInstallPackages(this)) {
+                        pendingInstallApk = apkFile
+                        Toast.makeText(
+                            this,
+                            "Hãy bật 'Cho phép từ nguồn này' một lần duy nhất rồi bấm quay lại.",
+                            Toast.LENGTH_LONG
+                        ).show()
+                        AppUpdater.openInstallPermissionSettings(this)
+                    } else {
+                        AppUpdater.launchInstaller(this, apkFile)
+                    }
+                }
+            }
+        }.start()
     }
 
     private fun refreshWeatherNow() {
