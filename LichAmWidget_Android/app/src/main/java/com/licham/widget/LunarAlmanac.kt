@@ -709,16 +709,7 @@ object LunarAlmanac {
     }
 
     fun getWidgetMetaLine(almanac: DayAlmanac, nowCal: Calendar): String {
-        val next = getUpcomingLunarHolidays(nowCal, limit = 1).firstOrNull()
-        val nextPart = if (next != null) {
-            val shortName = next.name.substringBefore(" (")
-                .replace(" tháng ", " T")
-                .replace(" ÂL", "")
-            " • $shortName (${next.daysLeft}ng)"
-        } else {
-            " • Tiết ${almanac.solarTerm}"
-        }
-        return "Ngày ${almanac.dayCanChi} (${almanac.napAm}) • Hỷ: ${almanac.hyThanDir}, Tài: ${almanac.taiThanDir}$nextPart"
+        return "Ngày ${almanac.dayCanChi} (${almanac.napAm}) • Tiết ${almanac.solarTerm} • Hỷ: ${almanac.hyThanDir}, Tài: ${almanac.taiThanDir}"
     }
 
     fun getWidgetHoursLine(almanac: DayAlmanac): String {

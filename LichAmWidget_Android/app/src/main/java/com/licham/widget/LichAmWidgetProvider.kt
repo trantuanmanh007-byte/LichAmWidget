@@ -11,6 +11,7 @@ import android.graphics.Color
 import android.os.BatteryManager
 import android.view.View
 import android.widget.RemoteViews
+import androidx.core.text.HtmlCompat
 import java.util.Calendar
 import java.util.Locale
 
@@ -176,6 +177,56 @@ class LichAmWidgetProvider : AppWidgetProvider() {
                     Color.parseColor("#2C3034")
                 }
                 views.setTextColor(R.id.tv_widget_almanac_advice, adviceColor)
+
+                // Bind upcoming Lunar Holidays & Rằm / Mùng 1 right on widget
+                val upcoming = LunarAlmanac.getUpcomingLunarHolidays(now, limit = 2)
+                if (upcoming.isNotEmpty()) {
+                    views.setViewVisibility(R.id.layout_widget_holidays, View.VISIBLE)
+                    val first = upcoming[0]
+                    val prefix0 = if (first.isMajor) "★ " else "• "
+                    views.setTextViewText(
+                        R.id.tv_widget_hol_name_0,
+                        "$prefix0${first.name} (${first.lunarLabel})"
+                    )
+                    views.setTextColor(
+                        R.id.tv_widget_hol_name_0,
+                        if (first.isMajor) Color.parseColor("#B71C1C") else Color.parseColor("#1E2328")
+                    )
+                    views.setTextViewText(
+                        R.id.tv_widget_hol_date_0,
+                        HtmlCompat.fromHtml(
+                            "Dương lịch: ${first.solarLabel} - <b>còn ${first.daysLeft} ngày</b>",
+                            HtmlCompat.FROM_HTML_MODE_LEGACY
+                        )
+                    )
+
+                    if (upcoming.size >= 2) {
+                        val second = upcoming[1]
+                        val prefix1 = if (second.isMajor) "★ " else "• "
+                        views.setViewVisibility(R.id.divider_widget_hol, View.VISIBLE)
+                        views.setViewVisibility(R.id.col_widget_hol_1, View.VISIBLE)
+                        views.setTextViewText(
+                            R.id.tv_widget_hol_name_1,
+                            "$prefix1${second.name} (${second.lunarLabel})"
+                        )
+                        views.setTextColor(
+                            R.id.tv_widget_hol_name_1,
+                            if (second.isMajor) Color.parseColor("#B71C1C") else Color.parseColor("#1E2328")
+                        )
+                        views.setTextViewText(
+                            R.id.tv_widget_hol_date_1,
+                            HtmlCompat.fromHtml(
+                                "Dương lịch: ${second.solarLabel} - <b>còn ${second.daysLeft} ngày</b>",
+                                HtmlCompat.FROM_HTML_MODE_LEGACY
+                            )
+                        )
+                    } else {
+                        views.setViewVisibility(R.id.divider_widget_hol, View.GONE)
+                        views.setViewVisibility(R.id.col_widget_hol_1, View.GONE)
+                    }
+                } else {
+                    views.setViewVisibility(R.id.layout_widget_holidays, View.GONE)
+                }
 
                 views.setTextViewText(R.id.tv_widget_proverb, "“${almanac.proverb}”")
             } else {
