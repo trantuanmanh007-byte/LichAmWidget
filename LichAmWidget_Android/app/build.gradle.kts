@@ -18,13 +18,13 @@ android {
     }
 
     signingConfigs {
-        create("release") {
-            storeFile = file("widget_signing.jks")
-            storePassword = "LichAmWidgetKey2026"
-            keyAlias = "lichamwidget"
-            keyPassword = "LichAmWidgetKey2026"
-        }
-    }
+     create("release") {
+         storeFile = file("widget_signing.jks")
+         storePassword = System.getenv("KEYSTORE_PASSWORD") ?: ""
+         keyAlias = "lichamwidget"
+         keyPassword = System.getenv("KEYSTORE_PASSWORD") ?: ""
+     }
+ }
 
     buildTypes {
         release {
