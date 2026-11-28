@@ -31,6 +31,7 @@ jobs:
         working-directory: LichAmWidget_Android
         env:
           BUILD_NUMBER: ${{ github.run_number }}
+          KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
         run: gradle assembleRelease --stacktrace
 
       - name: Prepare APK asset
