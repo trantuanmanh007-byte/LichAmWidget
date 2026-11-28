@@ -9,6 +9,7 @@ import android.content.Intent
 import android.content.IntentFilter
 import android.graphics.Color
 import android.os.BatteryManager
+import android.view.View
 import android.widget.RemoteViews
 import java.util.Calendar
 import java.util.Locale
@@ -141,6 +142,24 @@ class LichAmWidgetProvider : AppWidgetProvider() {
             val todayLunar = LunarCalendar.convertSolar2Lunar(dayOfMonth, month, year)
             views.setTextViewText(R.id.tv_lunar_badge, todayLunar.badgeLabel())
 
+            // Full Almanac, Lunar Holiday & Daily Proverb on Widget Footer
+            val almanac = LunarAlmanac.getAlmanac(dayOfMonth, month, year)
+            if (LunarAlmanac.isShowExtraOnWidget(context)) {
+                views.setViewVisibility(R.id.layout_almanac_footer, View.VISIBLE)
+                val summaryLine = LunarAlmanac.getWidgetSummaryLine(almanac, now)
+                views.setTextViewText(R.id.tv_widget_almanac, summaryLine)
+                val summaryColor = when {
+                    almanac.lunarHoliday != null || almanac.lunarDay == 1 || almanac.lunarDay == 15 -> Color.parseColor("#C62828")
+                    almanac.isHoangDao -> Color.parseColor("#2E7D32")
+                    else -> Color.parseColor("#B45309")
+                }
+                views.setTextColor(R.id.tv_widget_almanac, summaryColor)
+                views.setTextViewText(R.id.tv_widget_proverb, "“${almanac.proverb}”")
+            } else {
+                views.setViewVisibility(R.id.layout_almanac_footer, View.GONE)
+            }
+
+            // Battery level & temperature
             val batteryStatus = context.registerReceiver(
                 null,
                 IntentFilter(Intent.ACTION_BATTERY_CHANGED)
@@ -155,6 +174,7 @@ class LichAmWidgetProvider : AppWidgetProvider() {
                 String.format(Locale.US, "%d%% • %.1f°C", pct, tempC)
             )
 
+            // Current weather & 5-day forecast
             val weather = WeatherRepository.loadCached(context)
             val cityName = WidgetPrefs.getCityName(context)
             if (weather != null && weather.daily.isNotEmpty()) {
@@ -200,6 +220,7 @@ class LichAmWidgetProvider : AppWidgetProvider() {
                 }
             }
 
+            // 7-Day Week Calendar Strip (Monday -> Sunday) with Lunar Holiday highlight
             val mondayCal = (now.clone() as Calendar).apply {
                 val dow = get(Calendar.DAY_OF_WEEK)
                 val daysFromMonday = if (dow == Calendar.SUNDAY) 6 else (dow - Calendar.MONDAY)
@@ -214,6 +235,7 @@ class LichAmWidgetProvider : AppWidgetProvider() {
                 val cYear = cellCal.get(Calendar.YEAR)
                 val cLunar = LunarCalendar.convertSolar2Lunar(cDay, cMonth, cYear)
                 val isToday = (cDay == dayOfMonth && cMonth == month && cYear == year)
+                val isSpecialLunar = LunarAlmanac.isLunarSpecialDay(cDay, cMonth, cYear)
 
                 views.setTextViewText(WEEK_LABEL_IDS[i], shortLabels[i])
                 views.setTextViewText(WEEK_SOLAR_IDS[i], "$cDay")
@@ -228,10 +250,13 @@ class LichAmWidgetProvider : AppWidgetProvider() {
                     views.setInt(WEEK_COL_IDS[i], "setBackgroundResource", R.drawable.bg_widget_transparent)
                     views.setTextColor(WEEK_LABEL_IDS[i], Color.parseColor("#787670"))
                     views.setTextColor(WEEK_SOLAR_IDS[i], Color.parseColor("#1E2328"))
-                    views.setTextColor(WEEK_LUNAR_IDS[i], Color.parseColor("#8A8882"))
+                    // Đánh dấu đỏ đậm cho ngày Lễ Âm lịch, Mùng 1 và Rằm
+                    val lunarColor = if (isSpecialLunar) Color.parseColor("#C62828") else Color.parseColor("#8A8882")
+                    views.setTextColor(WEEK_LUNAR_IDS[i], lunarColor)
                 }
             }
 
+            // Click handlers: tap clock / week strip / almanac footer -> open full Lich Van Nien & Settings
             val settingsIntent = Intent(context, MainActivity::class.java)
             val settingsPending = PendingIntent.getActivity(
                 context,
@@ -240,7 +265,10 @@ class LichAmWidgetProvider : AppWidgetProvider() {
                 PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
             )
             views.setOnClickPendingIntent(R.id.layout_top_left, settingsPending)
+            views.setOnClickPendingIntent(R.id.layout_week_row, settingsPending)
+            views.setOnClickPendingIntent(R.id.layout_almanac_footer, settingsPending)
 
+            // Tap weather / forecast -> quick refresh
             val refreshIntent = Intent(context, LichAmWidgetProvider::class.java).apply {
                 action = ACTION_REFRESH
             }

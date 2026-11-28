@@ -9,29 +9,29 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="20dp">
+        android:padding="18dp">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Lịch Âm &amp; Thời Tiết"
             android:textColor="#1E2328"
-            android:textSize="24sp"
+            android:textSize="23sp"
             android:textStyle="bold" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:text="Cấu hình Widget màn hình chính"
+            android:layout_marginTop="2dp"
+            android:text="Lịch Vạn Niên • Xem ngày tốt xấu • Cấu hình Widget"
             android:textColor="#6B6A66"
-            android:textSize="14sp" />
+            android:textSize="13sp" />
 
-        <!-- Status Card -->
+        <!-- FULL ALMANAC & AUSPICIOUS DAY CARD -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="14dp"
             android:background="@drawable/bg_card_white"
             android:orientation="vertical"
             android:padding="16dp">
@@ -39,7 +39,187 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Trạng thái hiện tại"
+                android:text="Xem Ngày Tốt Xấu (Lịch Vạn Niên)"
+                android:textColor="#1E2328"
+                android:textSize="15.5sp"
+                android:textStyle="bold" />
+
+            <!-- Date Navigation Controls -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/btn_prev_day"
+                    android:layout_width="0dp"
+                    android:layout_height="38dp"
+                    android:layout_marginEnd="4dp"
+                    android:layout_weight="0.85"
+                    android:backgroundTint="#ECEAE2"
+                    android:padding="0dp"
+                    android:text="◀ Trước"
+                    android:textAllCaps="false"
+                    android:textColor="#1E2328"
+                    android:textSize="12sp" />
+
+                <Button
+                    android:id="@+id/btn_pick_date"
+                    android:layout_width="0dp"
+                    android:layout_height="38dp"
+                    android:layout_marginEnd="4dp"
+                    android:layout_weight="1.15"
+                    android:backgroundTint="#E53935"
+                    android:padding="0dp"
+                    android:text="Chọn ngày"
+                    android:textAllCaps="false"
+                    android:textColor="#FFFFFF"
+                    android:textSize="12sp" />
+
+                <Button
+                    android:id="@+id/btn_today"
+                    android:layout_width="0dp"
+                    android:layout_height="38dp"
+                    android:layout_marginEnd="4dp"
+                    android:layout_weight="0.95"
+                    android:backgroundTint="#3E454C"
+                    android:padding="0dp"
+                    android:text="Hôm nay"
+                    android:textAllCaps="false"
+                    android:textColor="#FFFFFF"
+                    android:textSize="12sp" />
+
+                <Button
+                    android:id="@+id/btn_next_day"
+                    android:layout_width="0dp"
+                    android:layout_height="38dp"
+                    android:layout_weight="0.85"
+                    android:backgroundTint="#ECEAE2"
+                    android:padding="0dp"
+                    android:text="Sau ▶"
+                    android:textAllCaps="false"
+                    android:textColor="#1E2328"
+                    android:textSize="12sp" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tv_almanac_solar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:text="Thứ Bảy, 28/11/2026"
+                android:textColor="#1E2328"
+                android:textSize="17sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tv_almanac_lunar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="3dp"
+                android:lineSpacingExtra="3dp"
+                android:text="Âm lịch: 20/10/2026"
+                android:textColor="#55534D"
+                android:textSize="13.5sp" />
+
+            <TextView
+                android:id="@+id/tv_almanac_day_type"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/bg_badge_good"
+                android:paddingLeft="12dp"
+                android:paddingTop="5dp"
+                android:paddingRight="12dp"
+                android:paddingBottom="5dp"
+                android:text="✦ NGÀY HOÀNG ĐẠO"
+                android:textColor="#1B5E20"
+                android:textSize="12.5sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tv_almanac_holiday"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:background="#FDECEC"
+                android:lineSpacingExtra="3dp"
+                android:padding="9dp"
+                android:text="★ Ngày lễ Âm lịch"
+                android:textColor="#B71C1C"
+                android:textSize="13sp"
+                android:textStyle="bold"
+                android:visibility="gone" />
+
+            <!-- Daily Proverb Quote Box -->
+            <TextView
+                android:id="@+id/tv_almanac_proverb"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/bg_quote_box"
+                android:gravity="center"
+                android:lineSpacingExtra="3dp"
+                android:padding="10dp"
+                android:text="“Có công mài sắt, có ngày nên kim.”"
+                android:textColor="#5A4E3C"
+                android:textSize="13.5sp"
+                android:textStyle="italic" />
+
+            <!-- Detailed Almanac Breakdown -->
+            <TextView
+                android:id="@+id/tv_almanac_details"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:lineSpacingExtra="5dp"
+                android:text="Đang tính chi tiết ngày tốt xấu..."
+                android:textColor="#34383C"
+                android:textSize="13.5sp" />
+        </LinearLayout>
+
+        <!-- UPCOMING LUNAR HOLIDAYS CARD -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="14dp"
+            android:background="@drawable/bg_card_white"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Ngày lễ Âm lịch &amp; Rằm / Mùng 1 sắp tới"
+                android:textColor="#1E2328"
+                android:textSize="15sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tv_upcoming_holidays"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:lineSpacingExtra="5dp"
+                android:text="Đang tính danh sách ngày lễ..."
+                android:textColor="#3A3D40"
+                android:textSize="13.5sp" />
+        </LinearLayout>
+
+        <!-- Status Card -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="14dp"
+            android:background="@drawable/bg_card_white"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Trạng thái thời tiết &amp; Widget"
                 android:textColor="#1E2328"
                 android:textSize="15sp"
                 android:textStyle="bold" />
@@ -105,7 +285,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Địa điểm dự báo thời tiết"
+                android:text="Địa điểm dự báo &amp; Hiển thị Widget"
                 android:textColor="#1E2328"
                 android:textSize="15sp"
                 android:textStyle="bold" />
@@ -127,7 +307,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="14dp"
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
 
@@ -160,6 +340,42 @@
                     android:checked="true" />
             </LinearLayout>
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Hiện Tốt/Xấu, Lễ Âm &amp; Ngạn ngữ"
+                        android:textColor="#1E2328"
+                        android:textSize="15sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Hiển thị Hoàng/Hắc Đạo, lễ Âm lịch và câu ngạn ngữ ngay dưới widget"
+                        android:textColor="#6B6A66"
+                        android:textSize="12sp" />
+                </LinearLayout>
+
+                <androidx.appcompat.widget.SwitchCompat
+                    android:id="@+id/switch_widget_almanac"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checked="true" />
+            </LinearLayout>
+
             <Button
                 android:id="@+id/btn_refresh"
                 android:layout_width="match_parent"
@@ -183,7 +399,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Cách đưa ra màn hình chính"
+                android:text="Mẹo sử dụng nhanh"
                 android:textColor="#1E2328"
                 android:textSize="15sp"
                 android:textStyle="bold" />
@@ -193,7 +409,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="6dp"
                 android:lineSpacingExtra="4dp"
-                android:text="1. Nhấn giữ vùng trống trên màn hình chính Android.\n2. Chọn Tiện ích (Widgets) → Lịch Âm &amp; Thời Tiết.\n3. Kéo thả widget lên nửa trên màn hình và kéo giãn vừa khung giấy xé.\n4. Chạm cụm thời tiết trên widget để làm mới nhanh, chạm đồng hồ để mở lại cài đặt."
+                android:text="1. Chạm vào đồng hồ đỏ, lịch tuần hoặc dòng ngạn ngữ trên widget để mở nhanh bảng xem ngày tốt xấu chi tiết.\n2. Chạm cụm thời tiết hoặc dự báo 5 ngày trên widget để cập nhật thời tiết ngay lập tức.\n3. Trên thanh lịch tuần, các ngày Mùng 1, Rằm và Lễ Âm lịch sẽ tự động tô đỏ để dễ nhận biết."
                 android:textColor="#4A4D50"
                 android:textSize="13.5sp" />
         </LinearLayout>
