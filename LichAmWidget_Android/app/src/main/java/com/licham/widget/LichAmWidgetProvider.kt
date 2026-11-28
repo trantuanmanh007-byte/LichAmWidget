@@ -142,18 +142,41 @@ class LichAmWidgetProvider : AppWidgetProvider() {
             val todayLunar = LunarCalendar.convertSolar2Lunar(dayOfMonth, month, year)
             views.setTextViewText(R.id.tv_lunar_badge, todayLunar.badgeLabel())
 
-            // Full Almanac, Lunar Holiday & Daily Proverb on Widget Footer
+            // Full Rich Almanac, Lunar Holiday & Daily Proverb on Widget Footer
             val almanac = LunarAlmanac.getAlmanac(dayOfMonth, month, year)
             if (LunarAlmanac.isShowExtraOnWidget(context)) {
                 views.setViewVisibility(R.id.layout_almanac_footer, View.VISIBLE)
-                val summaryLine = LunarAlmanac.getWidgetSummaryLine(almanac, now)
-                views.setTextViewText(R.id.tv_widget_almanac, summaryLine)
-                val summaryColor = when {
+
+                views.setTextViewText(
+                    R.id.tv_widget_almanac,
+                    LunarAlmanac.getWidgetTitleLine(almanac)
+                )
+                val titleColor = when {
                     almanac.lunarHoliday != null || almanac.lunarDay == 1 || almanac.lunarDay == 15 -> Color.parseColor("#C62828")
-                    almanac.isHoangDao -> Color.parseColor("#2E7D32")
+                    almanac.isHoangDao -> Color.parseColor("#1B5E20")
                     else -> Color.parseColor("#B45309")
                 }
-                views.setTextColor(R.id.tv_widget_almanac, summaryColor)
+                views.setTextColor(R.id.tv_widget_almanac, titleColor)
+
+                views.setTextViewText(
+                    R.id.tv_widget_almanac_meta,
+                    LunarAlmanac.getWidgetMetaLine(almanac, now)
+                )
+                views.setTextViewText(
+                    R.id.tv_widget_almanac_hours,
+                    LunarAlmanac.getWidgetHoursLine(almanac)
+                )
+                views.setTextViewText(
+                    R.id.tv_widget_almanac_advice,
+                    LunarAlmanac.getWidgetAdviceLine(almanac)
+                )
+                val adviceColor = if (almanac.badDayWarnings.isNotEmpty()) {
+                    Color.parseColor("#B71C1C")
+                } else {
+                    Color.parseColor("#2C3034")
+                }
+                views.setTextColor(R.id.tv_widget_almanac_advice, adviceColor)
+
                 views.setTextViewText(R.id.tv_widget_proverb, "“${almanac.proverb}”")
             } else {
                 views.setViewVisibility(R.id.layout_almanac_footer, View.GONE)

@@ -690,4 +690,57 @@ object LunarAlmanac {
             "$dayType (${almanac.dayStarName}) • Trực ${almanac.trucName}"
         }
     }
+
+    fun getWidgetTitleLine(almanac: DayAlmanac): String {
+        val dayType = if (almanac.isHoangDao) {
+            "☀ HOÀNG ĐẠO (${almanac.dayStarName})"
+        } else {
+            "☾ HẮC ĐẠO (${almanac.dayStarName})"
+        }
+        val saoShort = almanac.sao28Name.substringBefore(" (")
+        val saoTag = if (almanac.sao28Good) "Tốt" else "Xấu"
+        val holiday = almanac.lunarHoliday
+        return when {
+            holiday != null -> "★ $holiday • $dayType"
+            almanac.lunarDay == 1 -> "★ Mùng 1 Thg ${almanac.lunarMonth} ÂL • $dayType • Trực ${almanac.trucName}"
+            almanac.lunarDay == 15 -> "★ Rằm Thg ${almanac.lunarMonth} ÂL • $dayType • Trực ${almanac.trucName}"
+            else -> "$dayType • Trực ${almanac.trucName} • Sao $saoShort ($saoTag)"
+        }
+    }
+
+    fun getWidgetMetaLine(almanac: DayAlmanac, nowCal: Calendar): String {
+        val next = getUpcomingLunarHolidays(nowCal, limit = 1).firstOrNull()
+        val nextPart = if (next != null) {
+            val shortName = next.name.substringBefore(" (")
+                .replace(" tháng ", " T")
+                .replace(" ÂL", "")
+            " • $shortName (${next.daysLeft}ng)"
+        } else {
+            " • Tiết ${almanac.solarTerm}"
+        }
+        return "Ngày ${almanac.dayCanChi} (${almanac.napAm}) • Hỷ: ${almanac.hyThanDir}, Tài: ${almanac.taiThanDir}$nextPart"
+    }
+
+    fun getWidgetHoursLine(almanac: DayAlmanac): String {
+        val compact = almanac.hoangDaoHours
+            .replace("h)", ")")
+            .replace(" (", "(")
+        return "Giờ tốt: $compact"
+    }
+
+    fun getWidgetAdviceLine(almanac: DayAlmanac): String {
+        val goodShort = almanac.shouldDo.split(",")
+            .take(3)
+            .joinToString(",") { it.trim() }
+        val badShort = almanac.shouldAvoid.substringBefore(";")
+            .split(",")
+            .take(2)
+            .joinToString(",") { it.trim() }
+        return if (almanac.badDayWarnings.isNotEmpty()) {
+            val warnNames = almanac.badDayWarnings.joinToString(", ") { it.substringBefore(" (") }
+            "⚠ Kỵ $warnNames • Nên: $goodShort • Tránh: $badShort"
+        } else {
+            "Nên: $goodShort • Kỵ: $badShort"
+        }
+    }
 }
